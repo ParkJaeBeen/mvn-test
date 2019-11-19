@@ -10,5 +10,33 @@
 					ui_id "ui_id",
 					credat,cretim,modat,modtim,active
 					from user_info
+					order by ui_num desc
 	</select>
+	<select id="selectUser" resultType="com.mvn.test.vo.UserInfoVO">
+		select ui_num "ui_num",
+					ui_name "ui_name",
+					ui_id "ui_id",
+					credat,cretim,modat,modtim,active
+					from user_info
+					<where>
+						<if test="ui_num != null">
+							ui_num=#{ui_num}
+						</if>
+					</where>
+	</select>
+	<insert id="insertUser">
+		insert into user_info(ui_num,ui_name,ui_id,ui_pwd,credat,cretim,modat,modtim)
+		values(seq_ui_num.nextval,#{ui_name},#{ui_id},#{ui_pwd},to_char(sysdate,'YYYYMMDD')
+					,to_char(sysdate,'HH24MISS'),to_char(sysdate,'YYYYMMDD'),to_char(sysdate,'HH24MISS'))
+	</insert>
+	<delete id="deleteUser">
+		delete from user_info where ui_num=#{ui_num}
+	</delete>
+	<update id="updateUser">
+		update user_info
+			set ui_name=#{ui_name},
+				modat=to_char(sysdate,'YYYYMMDD'),
+				modtim=to_char(sysdate,'HH24MISS')
+				where ui_num=#{ui_num}
+	</update>
 </mapper>

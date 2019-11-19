@@ -14,6 +14,7 @@
  <thead class="thead-dark">
 	<tr>
       <th scope="col">번호</th>
+      <th scope="col">아이디</th>
       <th scope="col">닉네임</th>
       <th scope="col">작성일</th>
       <th scope="col">작성시간</th>
@@ -22,12 +23,12 @@
 	<tbody id="tBody">
 	</tbody>
 </table>
-<button type="button" class="btn btn-outline-secondary">글쓰기</button>
+<button type="button" class="btn btn-outline-secondary" onclick="goPage('/views/user/insert')">회원가입</button>
 </div>
 <script>
 window.onload = function(){
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET','/user')
+	xhr.open('GET','/user/list')
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
 			if(xhr.status==200){
@@ -37,9 +38,10 @@ window.onload = function(){
 				var html = '';
 				for(var l of list)  
 				{
-					html += '<tr>'; 
+					html += '<tr onclick="goPage(\'/views/user/userView?ui_num='+l.ui_num+'\')">'; 
 					html += '<td>'+l.ui_num+'</td>';
 					html += '<td>'+l.ui_id+'</td>';
+					html += '<td>'+l.ui_name+'</td>';
 					html += '<td>'+l.credat+'</td>';
 					html += '<td>'+l.cretim+'</td>';
 					html += '</tr>';

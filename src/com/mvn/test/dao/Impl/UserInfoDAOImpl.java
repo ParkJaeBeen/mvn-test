@@ -31,4 +31,62 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		System.out.println(ud.selectUserList(null));
 	}
 
+	@Override
+	public UserInfoVO selectUser(UserInfoVO pUser) {
+		SqlSession ss = InitServlet.getSqlSession();
+		try {
+			return ss.selectOne("UserInfo.selectUser",pUser);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			ss.close();
+		}
+		return null;
+	}
+
+	@Override
+	public int insertUser(UserInfoVO pUser) {
+		SqlSession ss = InitServlet.getSqlSession();
+		try {
+			int cs = ss.insert("UserInfo.insertUser",pUser);
+			ss.commit();
+		return cs;
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			ss.close();
+		}
+		return 0;
+	}
+
+	@Override
+	public int deleteUser(UserInfoVO pUser) {
+		SqlSession ss = InitServlet.getSqlSession();
+		try {
+			int cs = ss.delete("UserInfo.deleteUser",pUser);
+			ss.commit();
+		return cs;
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			ss.close();
+		}
+		return 0;
+	}
+
+	@Override
+	public int updateUser(UserInfoVO pUser) {
+		SqlSession ss = InitServlet.getSqlSession();
+		try {
+			int cs = ss.update("UserInfo.updateUser",pUser);
+			ss.commit();
+		return cs;
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			ss.close();
+		}
+		return 0;
+	}
+
 }

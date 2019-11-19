@@ -3,7 +3,7 @@
  */
 function goPage(url)
 {
-	location.href='/views'+url;
+	location.href=url;
 }
 
 function ajax(conf) {

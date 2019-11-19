@@ -1,7 +1,11 @@
 package com.mvn.test.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,15 +26,50 @@ public class UserInfoController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
-		System.out.println("2.userinfoCondoGet");
-		System.out.println(request.getCharacterEncoding());
-		List<UserInfoVO> uiList = uis.getUserList(null); 
-		
-		response.getWriter().print(gs.toJson(uiList));
+//		
+//		System.out.println("2.userinfoCondoGet");
+//		System.out.println(request.getCharacterEncoding());
+		String cmd = request.getRequestURI().substring(6);
+		System.out.println(cmd);
+		if("list".equals(cmd))
+		{
+			List<UserInfoVO> uiList = uis.getUserList(null); 
+			response.getWriter().print(gs.toJson(uiList));
+		}
+		else if("view".equals(cmd))
+		{
+			int ui_num = Integer.parseInt(request.getParameter("ui_num"));
+			UserInfoVO uv = new UserInfoVO();
+			uv.setUi_num(ui_num);
+			UserInfoVO user = uis.getUserContent(uv);
+			response.getWriter().print(gs.toJson(user));
+		}	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String cmd = request.getRequestURI().substring(6);
+		System.out.println(cmd);
+		response.setContentType("application/json;charset=utf-8");
+		BufferedReader br = request.getReader();
+		String str = null;
+		String json = "";
+		while((str=br.readLine()) != null)
+		{
+				json += str;
+		}
+		UserInfoVO param = gs.fromJson(json, UserInfoVO.class);
+		if("insert".equals(cmd)) {
+			json = gs.toJson(uis.insertUser(param));
+			System.out.println(param);
+		}
+		else if("delete".equals(cmd)) {
+			json = gs.toJson(uis.deleteUser(param));
+			System.out.println(param);
+		}
+		else if("update".equals(cmd)) {
+			json = gs.toJson(uis.updateUser(param));
+			System.out.println(param);
+		}
+		response.getWriter().print(json);
 	}
-
 }

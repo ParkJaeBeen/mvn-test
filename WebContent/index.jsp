@@ -8,6 +8,6 @@
 </head>
 <body>
 index.jsp
-<a href="/list.jsp">리스트가기</a>
+<a href="/views/user/list">리스트가기</a>
 </body> 
 </html>
