@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FileTest">
+	<insert id="insertFileTest">
+		insert into file_test(ft_num,ft_id,ft_name,ft_file)
+		values(seq_ft_num.nextval,#{ftId},#{ftName},#{ftFile})
+	</insert>
+	<select id="selectFileTest" resultType="map">
+		select * from file_test
+		order by ft_num desc
+	</select>
+</mapper>

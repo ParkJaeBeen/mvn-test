@@ -2,10 +2,8 @@ package com.mvn.test.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,11 +28,12 @@ public class UserInfoController extends HttpServlet {
 //		System.out.println("2.userinfoCondoGet");
 //		System.out.println(request.getCharacterEncoding());
 		String cmd = request.getRequestURI().substring(6);
+		PrintWriter pw = response.getWriter();
 		System.out.println(cmd);
 		if("list".equals(cmd))
 		{
 			List<UserInfoVO> uiList = uis.getUserList(null); 
-			response.getWriter().print(gs.toJson(uiList));
+			pw.print(gs.toJson(uiList));
 		}
 		else if("view".equals(cmd))
 		{
@@ -42,7 +41,7 @@ public class UserInfoController extends HttpServlet {
 			UserInfoVO uv = new UserInfoVO();
 			uv.setUi_num(ui_num);
 			UserInfoVO user = uis.getUserContent(uv);
-			response.getWriter().print(gs.toJson(user));
+			pw.print(gs.toJson(user));
 		}	
 	}
 
@@ -50,6 +49,7 @@ public class UserInfoController extends HttpServlet {
 		String cmd = request.getRequestURI().substring(6);
 		System.out.println(cmd);
 		response.setContentType("application/json;charset=utf-8");
+		PrintWriter pw = response.getWriter();
 		BufferedReader br = request.getReader();
 		String str = null;
 		String json = "";
@@ -70,6 +70,6 @@ public class UserInfoController extends HttpServlet {
 			json = gs.toJson(uis.updateUser(param));
 			System.out.println(param);
 		}
-		response.getWriter().print(json);
+		pw.print(json);
 	}
 }
