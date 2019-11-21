@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	ID : <input type="text" id="ftId"><br>
+	NAME : <input type="text" id="ftName"><br>
+	FILE : <input type="file" id="ftFile"><br>
+	<button onclick="upload()">upload</button>
+<progress id="pro" value="0" max="100"></progress>
+<div id="rDiv"></div>
+<script>
+function upload(){
+	var ftFile = document.querySelector('#ftFile');
+	console.log(ftFile.files[0]);
+	var pro = document.querySelector('#pro');
+	var rDiv = document.querySelector('#rDiv');
+	var formData = new FormData();
+	formData.append('ftId',document.querySelector('#ftId').value);
+	formData.append('ftName',document.querySelector('#ftName').value);
+	formData.append('ftFile',ftFile.files[0]);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.upload.addEventListener('progress',function(event){
+		pro.value = Math.floor(event.loaded/event.total * 100);
+		console.log(event);
+		rDiv.innerHTML = pro.value + '%';
+	});
+	xhr.open('POST','/file');
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState==xhr.DONE){
+			if(xhr.status==200){
+				
+			}
+		}
+	}
+	xhr.send(formData);
+}
+</script>
+</body>
+</html>

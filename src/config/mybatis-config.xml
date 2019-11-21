@@ -17,5 +17,6 @@
   <mappers>
     <mapper resource="config/mapper/UserInfo.xml"/>
     <mapper resource="config/mapper/FileTest.xml"/>
+    <mapper resource="config/mapper/PhotoBoard.xml"/>
   </mappers>
 </configuration>

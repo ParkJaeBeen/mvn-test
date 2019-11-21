@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PhotoBoard">
+	<resultMap type="map" id="pb">
+		<result property="pbContent" column="pb_content" jdbcType="CLOB" javaType="String"/>
+	</resultMap>
+	<select id="selectPhotoBoard"  resultMap="pb">
+		select * from photo_board order by pb_num desc
+	</select>
+	<select id="selectPhotoContent" resultMap="pb">
+		select pb_num "pbNum",
+					pb_title "pbTitle",
+					pb_content,
+					pb_img1 "pbImg1",
+					pb_img2 "pbImg2",
+					credat,cretim,creusr,moddat,modtim,modusr,
+					pb_cnt "pbCnt"
+					from photo_board
+					<where>
+						<if test="pbNum != null">
+							pb_num=#{pbNum}
+						</if>
+					</where>
+	</select>
+	<insert id="insertPhotoBoard">
+		insert into photo_board(pb_num,pb_title,pb_content,pb_img1,pb_img2,credat,cretim,creusr,moddat,modtim,modusr,pb_cnt)
+		values(SEQ_photo_board_pb_num.nextval,#{pbTitle},#{pbContent},#{pbImg1},#{pbImg2},
+					to_char(sysdate,'YYYY-MM-DD'),to_char(sysdate,'HH24:MI:SS'),1,to_char(sysdate,'YYYY-MM-DD'),to_char(sysdate,'HH24:MI:SS'),1,
+					1
+					)
+	</insert>
+	<delete id="deletePhotoBoard">
+		delete from photo_board where=#{pbNum}
+	</delete>
+	<update id="updatePhotoBoard">
+		update photo_board
+			set pb_title=#{pbTitle},
+				pb_content=#{pbContent},
+				moddat=to_char(sysdate,'YYYYMMDD'),
+				modtim=to_char(sysdate,'HH24MISS'),
+				modusr=#{pbNum},
+				where pb_num=#{pbNum}
+	</update>
+</mapper>

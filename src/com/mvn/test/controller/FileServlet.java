@@ -39,8 +39,8 @@ public class FileServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memSize = 1024 * 1024*5;	//5mb
-		int totalSize = 1024 * 1024 * 50; //50mb
-		int fileSize = 1024 * 1024 * 10;	//10mb
+		int totalSize = 1024 * 1024 * 400; //400mb
+		int fileSize = 1024 * 1024 * 400;	//400mb
 		DiskFileItemFactory dfif = new DiskFileItemFactory();
 		dfif.setSizeThreshold(memSize);	//메모리에 5MB 정도를 기억해 놓는다 / 기억할수 있는 메모리 용량을 지정하는 것 / 잠깐 기억해놓을 공간!
 		dfif.setRepository(new File(System.getProperty("java.io.tmpdir")));
