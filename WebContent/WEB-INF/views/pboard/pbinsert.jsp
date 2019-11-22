@@ -48,7 +48,7 @@ function submit(){
 				alert('성공');
 				location.href='/views/pboard/pblist';
 			},
-			data:form,
+			data:form,  
 	}
 	send(conf);
 }
