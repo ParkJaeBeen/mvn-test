@@ -17,7 +17,7 @@ public class InitServlet extends HttpServlet {
 	private static SqlSessionFactory ssf;
 	static {
 		String path="/config/mybatis-config.xml";
-		InputStream is = UserInfoDAOImpl.class.getResourceAsStream(path);
+		InputStream is = InitServlet.class.getResourceAsStream(path);
 		ssf = new SqlSessionFactoryBuilder().build(is);		//SqlSessionFactoryBuilder = build method 외에는 안쓸것이다 / sqlSession 을 만드는 팩토리 를 빌드한다
 																									//Factory(Oracle)은 하나만 있으면 된다.
 	}

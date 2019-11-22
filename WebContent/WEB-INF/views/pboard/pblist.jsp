@@ -29,33 +29,32 @@
 	<tbody id="tBody">
 	</tbody>
 </table>
-<button type="button" class="btn btn-outline-secondary" onclick="goPage('/views/pb/pbinsert')">글쓰기</button>
+<button type="button" class="btn btn-outline-secondary" onclick="goPage('/views/pboard/pbinsert')">글쓰기</button>
 </div>
 <script>
 window.onload = function(){
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET','/pb/list');
+	xhr.open('GET','/pboard/list');
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState==xhr.DONE){
 			if(xhr.status==200){
 				var pbList = JSON.parse(xhr.responseText);
-				console.log(xhr.responseText);
 				var tBody = document.getElementById('tBody');
 				var html='';
 				for(var i of pbList){
-					html += '<tr onclick="goPage(\'/views/pb/pbContent?pb_num=' + i.PB_NUM + '\')">'; 
-					html += '<td>' +i.PB_NUM+ '</td>';
-					html += '<td>' +i.PB_TITLE+ '</td>';
-					html += '<td>' +i.pbContent+ '</td>';
-					html += '<td><img src="' +i.PB_IMG1+ '" width="100px",height="50px"></td>'; 
-					html += '<td><img src="' +i.PB_IMG2+ '" width="100px",height="50px"></td>';
-					html += '<td>' +i.CREDAT+ '</td>';
-					html += '<td>' +i.CRETIM+ '</td>';
-					html += '<td>' +i.CREUSR+ '</td>';
-					html += '<td>' +i.MODDAT+ '</td>';
-					html += '<td>' +i.MODTIM+ '</td>';
-					html += '<td>' +i.MODUSR+ '</td>';
-					html += '</tr>';
+					html += '<tr onclick="goPage(\'/views/pboard/pbContent?pb_num=' + i.pbNum + '\')">\n';  
+					html += '<td>' +i.pbNum+ '</td>\n';
+					html += '<td>' +i.pbTitle+ '</td>\n';
+					html += '<td>' +i.pbContent+ '</td>\n';
+					html += '<td><img src="${pageContext.request.contextPath}' +i.pbImg1+ '" width="100px",height="50px"></td>\n'; 
+					html += '<td><img src="${pageContext.request.contextPath}' +i.pbImg2+ '" width="100px",height="50px"></td>\n';
+					html += '<td>' +i.credat+ '</td>\n';
+					html += '<td>' +i.cretim+ '</td>\n';
+					html += '<td>' +i.creusr+ '</td>\n';
+					html += '<td>' +i.moddat+ '</td>\n';
+					html += '<td>' +i.modtim+ '</td>\n';
+					html += '<td>' +i.modusr+ '</td>\n';
+					html += '</tr>\n';
 				}
 				tBody.innerHTML = html;
 			}

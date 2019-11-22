@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "/ViewsServlet",urlPatterns = {"/views/*"},loadOnStartup = 1)
+@WebServlet(name = "/ViewsServlet",urlPatterns = {"/views/*"})
 public class ViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String PREFIX = "/WEB-INF";
@@ -18,7 +18,7 @@ public class ViewServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = PREFIX + request.getRequestURI() + SUFFIX;
-		System.out.println(path);
+		System.out.println("path : " + path);
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
 	}

@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.mvn.test.vo.PhotoBoardVO;
+
 public interface PhotoBoardDAO {
-	public List<Map<String, String>> getPhotoBoard(SqlSession ss);
-	public Map<String, String> getPhotoContent(Map<String, String> pBoard,SqlSession ss);
-	public int insertPhoto(SqlSession ss,Map<String,String> pBoard);
-	public int deletePhoto(SqlSession ss,Map<String, Object> pBoard);
-	public int updatePhoto(SqlSession ss,Map<String,String> pBoard);
+	public List<PhotoBoardVO> getPhotoBoard(SqlSession ss);
+	public PhotoBoardVO getPhotoContent(PhotoBoardVO pBoard,SqlSession ss);
+	public int insertPhoto(SqlSession ss,PhotoBoardVO pbvo);
+	public int deletePhoto(SqlSession ss,PhotoBoardVO pBoard);
+	public int updatePhoto(SqlSession ss,PhotoBoardVO pBoard);
 }
