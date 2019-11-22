@@ -39,9 +39,11 @@
 		update photo_board
 			set pb_title=#{pbTitle},
 				pb_content=#{pbContent},
+				pb_img1=#{pbImg1},
+				pb_img2=#{pbImg2},
 				creusr=#{creusr},
-				moddat=to_char(sysdate,'YYYYMMDD'),
-				modtim=to_char(sysdate,'HH24MISS'),
+				moddat=to_char(sysdate,'YYYY-MM-DD'),
+				modtim=to_char(sysdate,'HH24:MI:SS'),
 				modusr=#{creusr}
 				where pb_num=#{pbNum}
 	</update>
